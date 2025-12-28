@@ -1,0 +1,80 @@
++-----------------------------+
+|            USERS            |
++-----------------------------+
+| PK  id (UUID)               |
+|     name (VARCHAR, NOT NULL)|
+|     email (VARCHAR, UNIQUE) |
+|     password_hash (TEXT)    |
+|     role (user/admin)       |
+|     is_verified (BOOLEAN)   |
+|     created_at (TIMESTAMP)  |
+|     updated_at (TIMESTAMP)  |
++--------------+--------------+
+               |
+               | 1
+               |
+               | *
++--------------v--------------+
+|           GEARS             |
++-----------------------------+
+| PK  id (UUID)               |
+| FK  user_id → users.id      |
+|     name (VARCHAR)          |
+|     category (VARCHAR)      |
+|     serial_number (UNIQUE)  |
+|     purchase_date (DATE)    |
+|     expiry_date (DATE)      |
+|     status (safe/expired/   |
+|             damaged)        |
+|     created_at (TIMESTAMP)  |
+|     updated_at (TIMESTAMP)  |
++--------------+--------------+
+               |
+               | 1
+               |
+               | *
++--------------v--------------+
+|     GEAR_STATUS_LOGS        |
++-----------------------------+
+| PK  id (UUID)               |
+| FK  gear_id → gears.id      |
+|     previous_status         |
+|     current_status          |
+|     note (TEXT)             |
+|     changed_at (TIMESTAMP)  |
++-----------------------------+
+
+
++-----------------------------+
+|        NOTIFICATIONS        |
++-----------------------------+
+| PK  id (UUID)               |
+| FK  user_id → users.id      |
+| FK  gear_id → gears.id      |
+|     title (VARCHAR)         |
+|     message (TEXT)          |
+|     is_read (BOOLEAN)       |
+|     created_at (TIMESTAMP)  |
++-----------------------------+
+
+
++-----------------------------+
+|        ACTIVITY_LOGS        |
++-----------------------------+
+| PK  id (UUID)               |
+| FK  user_id → users.id      |
+|     action (VARCHAR)        |
+|     description (TEXT)     |
+|     created_at (TIMESTAMP)  |
++-----------------------------+
+
+
++-----------------------------+
+|        AUTH_TOKENS          |
++-----------------------------+
+| PK  id (UUID)               |
+| FK  user_id → users.id      |
+|     token (TEXT)            |
+|     expires_at (TIMESTAMP)  |
+|     created_at (TIMESTAMP)  |
++-----------------------------+
